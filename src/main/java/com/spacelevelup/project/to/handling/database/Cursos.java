@@ -1,15 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.spacelevelup.project.to.handling.database;
+
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Lee_Dan
  */
 public class Cursos extends javax.swing.JFrame {
+
+    public Connection con = null;
+    public Statement stmt;
+    public ResultSet rs;
 
     /**
      * Creates new form Cursos
@@ -27,95 +29,305 @@ public class Cursos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jButtonPrimeiro = new javax.swing.JButton();
+        jButtonProximo = new javax.swing.JButton();
+        jButtonAnterior = new javax.swing.JButton();
+        jButtonUltimo = new javax.swing.JButton();
+        jButtonAtualizar = new javax.swing.JButton();
+        jButtonLimparCampos = new javax.swing.JButton();
+        jButtonInserir = new javax.swing.JButton();
+        jButtonDeletar = new javax.swing.JButton();
+        jLNome = new javax.swing.JLabel();
+        jLabelNavigatorRegister = new javax.swing.JLabel();
+        jLSigla = new javax.swing.JLabel();
+        jLDesc = new javax.swing.JLabel();
+        jTextSigla = new javax.swing.JTextField();
+        jTextFieldNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaDesc = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(20, 360, 73, 23);
+        jButtonPrimeiro.setText("<< Primeiro");
+        jButtonPrimeiro.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButtonPrimeiro.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButtonPrimeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPrimeiroActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonPrimeiro);
+        jButtonPrimeiro.setBounds(20, 360, 100, 23);
 
-        jButton2.setText("jButton1");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(200, 360, 73, 23);
+        jButtonProximo.setText("Próximo");
+        jButtonProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonProximo);
+        jButtonProximo.setBounds(380, 360, 71, 23);
 
-        jButton3.setText("jButton1");
-        getContentPane().add(jButton3);
-        jButton3.setBounds(380, 360, 73, 23);
+        jButtonAnterior.setText("Anterior");
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAnterior);
+        jButtonAnterior.setBounds(190, 360, 71, 23);
 
-        jButton4.setText("jButton1");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(550, 360, 73, 23);
+        jButtonUltimo.setText("Ultimo >>");
+        jButtonUltimo.setAlignmentX(0.1F);
+        jButtonUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUltimoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonUltimo);
+        jButtonUltimo.setBounds(533, 360, 90, 23);
 
-        jButton5.setText("jButton1");
-        getContentPane().add(jButton5);
-        jButton5.setBounds(450, 260, 110, 30);
+        jButtonAtualizar.setText("Atualizar");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonAtualizar);
+        jButtonAtualizar.setBounds(450, 260, 110, 30);
 
-        jButton7.setText("jButton1");
-        getContentPane().add(jButton7);
-        jButton7.setBounds(10, 200, 110, 23);
+        jButtonLimparCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButtonLimparCampos.setText("limpar campos");
+        jButtonLimparCampos.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButtonLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparCamposActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonLimparCampos);
+        jButtonLimparCampos.setBounds(11, 200, 120, 23);
 
-        jButton8.setText("jButton1");
-        getContentPane().add(jButton8);
-        jButton8.setBounds(70, 260, 110, 30);
+        jButtonInserir.setText("Inserir");
+        jButtonInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInserirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonInserir);
+        jButtonInserir.setBounds(70, 260, 110, 30);
 
-        jButton6.setText("jButton1");
-        getContentPane().add(jButton6);
-        jButton6.setBounds(270, 260, 110, 30);
+        jButtonDeletar.setText("Deletar");
+        jButtonDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeletarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonDeletar);
+        jButtonDeletar.setBounds(270, 260, 110, 30);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(80, 100, 60, 30);
+        jLNome.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLNome.setText("Nome");
+        getContentPane().add(jLNome);
+        jLNome.setBounds(80, 100, 60, 30);
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("jLabel1");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(130, 310, 340, 30);
+        jLabelNavigatorRegister.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabelNavigatorRegister.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelNavigatorRegister.setText("Navegação entre registros");
+        jLabelNavigatorRegister.setToolTipText("");
+        getContentPane().add(jLabelNavigatorRegister);
+        jLabelNavigatorRegister.setBounds(150, 310, 340, 30);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("jLabel1");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(80, 50, 60, 30);
+        jLSigla.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLSigla.setText("Sigla");
+        getContentPane().add(jLSigla);
+        jLSigla.setBounds(80, 50, 60, 30);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("jLabel1");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(80, 150, 60, 30);
+        jLDesc.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLDesc.setText("Descrição");
+        getContentPane().add(jLDesc);
+        jLDesc.setBounds(60, 150, 80, 30);
 
-        jTextField2.setText("jTextField1");
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(160, 50, 300, 30);
+        jTextSigla.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextSigla.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextSigla.setText("sigla");
+        jTextSigla.setToolTipText("");
+        getContentPane().add(jTextSigla);
+        jTextSigla.setBounds(160, 50, 300, 30);
 
-        jTextField3.setText("jTextField1");
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(160, 100, 300, 30);
+        jTextFieldNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextFieldNome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldNome.setText("Nome");
+        getContentPane().add(jTextFieldNome);
+        jTextFieldNome.setBounds(160, 100, 300, 30);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaDesc.setColumns(20);
+        jTextAreaDesc.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jTextAreaDesc.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaDesc);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(160, 140, 300, 96);
+        jScrollPane1.setBounds(160, 140, 300, 91);
 
         setBounds(0, 0, 662, 453);
     }// </editor-fold>//GEN-END:initComponents
+
+    public void abreTabela() {
+        String query1 = "Select * from curso";
+        try {
+            Class.forName("com.mysql.jc.jbdc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/curso", "root", "123");
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(query1);
+            rs.first();
+            atualizarCampos();
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void atualizarCampos() {
+        try {
+            jLSigla.setText("" + rs.getString("Sigla"));
+            jLNome.setText("" + rs.getString("Nome"));
+            jLDesc.setText("" + rs.getString("Descricao"));
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+
+    private void jButtonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirActionPerformed
+        try {
+            Class.forName("com.mysql.jc.jbdc.Driver");
+            con = DriverManager.getConnection("jbdc:mysql://localhost/curso", "root", "123");
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String sql = "INSERT INTO cursoVALUES('" + jLSigla.getText() + "','" + jLNome.getText() + "','" + jLDesc.getText() + "')";
+            JOptionPane.showMessageDialog(null, sql);
+            int i = stmt.executeUpdate(sql);
+            stmt.close();
+            if (i > 0) {
+                JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso!");
+                abreTabela();
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonInserirActionPerformed
+
+    private void jButtonDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeletarActionPerformed
+        String query1 = "DELETE FROM curso WHERE(Sigla=";
+        String a = jLSigla.getText();
+        try {
+            Class.forName("com.mysql.jc.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/curso",
+                    "root", "123");
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            String sql = query1 + "'" + jLSigla.getText() + "')";
+            JOptionPane.showMessageDialog(null, sql);
+            int i = 0;
+            i = stmt.executeUpdate(sql);//executando o comando sql
+            stmt.close();
+            if (i > 0) {
+                JOptionPane.showMessageDialog(null, "Curso deletado com sucesso!");
+                // limpando campos
+                jLSigla.setText("");
+                jLNome.setText("");
+                jLDesc.setText("");
+                abreTabela();
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonDeletarActionPerformed
+
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
+        String query1 = "UPDATE curso SET sigla=";
+        String a = jLSigla.getText();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/dbaula4", "root", "123");
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            String sql = query1 + "'" + jLSigla.getText() + "',"
+                    + "nome='" + jLNome.getText() + "',"
+                    + "descricao='" + jLDesc.getText()
+                    + "' where sigla=" + "'" + jLSigla.getText() + "'";
+            JOptionPane.showMessageDialog(null, sql);
+            int i = 0;
+            i = stmt.executeUpdate(sql);//executando o comando sql
+            int y = 0;
+            stmt.close();
+            y = stmt.CLOSE_CURRENT_RESULT;
+            if (i > 0) {
+                JOptionPane.showMessageDialog(null, "Curso alterado com sucesso!");
+                abreTabela();
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void jButtonLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposActionPerformed
+        jLSigla.setText("");
+        jLNome.setText("");
+        jLDesc.setText("");
+
+    }//GEN-LAST:event_jButtonLimparCamposActionPerformed
+
+    private void jButtonPrimeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrimeiroActionPerformed
+        try {
+            rs.first();
+            atualizarCampos();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonPrimeiroActionPerformed
+
+    private void jButtonUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUltimoActionPerformed
+        try {
+            rs.last();
+            atualizarCampos();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonUltimoActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        try {
+            rs.previous();
+            atualizarCampos();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximoActionPerformed
+        try {
+            rs.next();
+            atualizarCampos();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonProximoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        abreTabela();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -153,21 +365,21 @@ public class Cursos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jButtonAnterior;
+    private javax.swing.JButton jButtonAtualizar;
+    private javax.swing.JButton jButtonDeletar;
+    private javax.swing.JButton jButtonInserir;
+    private javax.swing.JButton jButtonLimparCampos;
+    private javax.swing.JButton jButtonPrimeiro;
+    private javax.swing.JButton jButtonProximo;
+    private javax.swing.JButton jButtonUltimo;
+    private javax.swing.JLabel jLDesc;
+    private javax.swing.JLabel jLNome;
+    private javax.swing.JLabel jLSigla;
+    private javax.swing.JLabel jLabelNavigatorRegister;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextArea jTextAreaDesc;
+    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextSigla;
     // End of variables declaration//GEN-END:variables
 }
